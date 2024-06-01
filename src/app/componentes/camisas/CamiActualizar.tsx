@@ -5,8 +5,8 @@ import { CamisasMarca } from "../../modelos/CamisasMarca";
 import { ARREGLO_CAMISA_MARCA } from "../../utilidades/dominios/DomMarca";
 import { useFormulario } from "../../utilidades/misHooks/useFormulario";
 import { Camisas } from "../../modelos/Camisas";
-import { ARREGLO_CAMISAS } from "../../mocks/Camisas-mocks";
-import { ConvertirBase64 } from "../../utilidades/funciones/ConvertirBase64";
+
+
 import { CamisasTalla } from "../../modelos/CamisasTalla";
 import { ARREGLO_CAMISA_TALLA } from "../../utilidades/dominios/DomTalla";
 import { CamisasColor } from "../../modelos/CamisasColor";
@@ -14,18 +14,17 @@ import { ARREGLO_CAMISA_COLOR } from "../../utilidades/dominios/DomColor";
 
 export const CamiActualizar = () => {
   const [enProceso, setEnProceso] = useState<boolean>(false);
-  const [imgBase64, setImgBase64] = useState<any>();
+
   const [imgMiniatura, setimgMiniatura] = useState<any>(noFoto);
 
-  const [arrCamisas] = useState<Camisas[]>(ARREGLO_CAMISAS);
+  
   const [arrMarcas] = useState<CamisasMarca[]>(ARREGLO_CAMISA_MARCA);
   const [arrTallas] = useState<CamisasTalla[]>(ARREGLO_CAMISA_TALLA);
   const [arrColores] = useState<CamisasColor[]>(ARREGLO_CAMISA_COLOR);
 
   const {
-    objeto: { colorCamisa, tallaCamisa, codMarcaCamisa, imagenCamisa },
+    objeto: { colorCamisa, tallaCamisa, codMarcaCamisa },
     dobleEnlace,
-    objeto,
   } = useFormulario<Camisas>(new Camisas(0, "", "", "", "", ""));
 
   const cargarImagen = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,9 +32,7 @@ export const CamiActualizar = () => {
     if (archivos) {
       const imagen = archivos[0];
       setimgMiniatura(URL.createObjectURL(imagen));
-      dobleEnlace(e);
-      const base64 = await ConvertirBase64(imagen);
-      setImgBase64(base64);
+      
     }
   };
 
